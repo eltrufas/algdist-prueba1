@@ -8,7 +8,7 @@ pipelines:
   paper:
     envs:
     - host
-    path: paper
+    path: informe
     requirements: {}
     stages:
     - build
@@ -16,31 +16,25 @@ pipelines:
   powerset:
     envs:
     - host
-    path: pipelines/powerset
+    path: powerset
     requirements: {}
     stages:
     - setup
     - run
-    - post-run
-    - validate
-    - teardown
     vars: []
   squares:
     envs:
     - host
-    path: pipelines/squares
+    path: squares
     requirements: {}
     stages:
     - setup
     - run
-    - post-run
-    - validate
-    - teardown
     vars: []
   stars:
     envs:
     - host
-    path: pipelines/stars
+    path: stars
     requirements: {}
     stages:
     - generate-test-data
