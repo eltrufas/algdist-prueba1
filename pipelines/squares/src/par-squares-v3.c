@@ -18,7 +18,6 @@
 
 
 struct Message {
-
    int myid, nvalue, numthreads;
    float *data;
 };   
@@ -32,23 +31,23 @@ void *Computes(void *n) {
    struct Message *m;
    float *s;
 
-   printf("\n\n**************************************\n\n");
-   fflush(stdout);
+//   printf("\n\n**************************************\n\n");
+ //  fflush(stdout);
    m = (struct Message *) n;
-   printf("From %d Beginning The Task\n\n",m->myid);
-   fflush(stdout);
+  // printf("From %d Beginning The Task\n\n",m->myid);
+  // fflush(stdout);
    size = m->nvalue / m->numthreads;
    s = m->data;
    for (i = 0, j = m->myid * size + 1; i < size; i = i + 1, j = j + 1) {
       s[i] = sqrt(j);
-      fflush(stdout);
+      //fflush(stdout);
    } 
-   printf("From %d Ending The Task\n\n",m->myid);
-   fflush(stdout);
-   sleep(2 * m->myid);
+   //printf("From %d Ending The Task\n\n",m->myid);
+   //fflush(stdout);
+   //sleep(2 * m->myid);
    for (i = 0; i < size; i++) {
-      printf("%d.- %f\n",i,m->data[i]);
-      fflush(stdout);
+      //printf("%d.- %f\n",i,m->data[i]);
+      //fflush(stdout);
    }   
    pthread_exit((void *) m);
 }
@@ -101,32 +100,34 @@ int main(int argc, char *argv[]) {
       t0 = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
 
       for (ii = 0; ii < k; ii = ii + 1) {
-         printf("Main: creating thread %d\n", ii);
+         //printf("Main: creating thread %d\n", ii);
          m[ii]->myid = ii;
          m[ii]->nvalue = n;
          m[ii]->numthreads = k;
          m[ii]->data = s[ii];
          rc = pthread_create(&thread[ii],&attribute,Computes,(void *) m[ii]);
-         printf("**** %d.- rc = %d\n",ii,rc);
+         //printf("**** %d.- rc = %d\n",ii,rc);
       }
       pthread_attr_destroy(&attribute); 
       for (ii = 0; ii < k; ii = ii + 1) {
          rc = pthread_join(thread[ii],&exit_status);
-         printf("i = %d rc = %d \n",ii,rc);
+         //printf("i = %d rc = %d \n",ii,rc);
          m[ii] = (struct Message *) exit_status;
-         printf("%d.- Message Received From %d\n",ii+1,m[ii]->myid);
+         //printf("%d.- Message Received From %d\n",ii+1,m[ii]->myid);
          s[ii] = m[ii]->data;
-         sleep(3);
+         //sleep(3);
       }
 
       gettimeofday(&timecheck, NULL);
       t1 = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
       c1 = clock();
 
-      printf("\n\n**************************************\n\n");
-      for (j = 0, l = 1; j < k; j = j + 1)
-         for (ii = 0; ii < n / k; ii = ii + 1, l = l + 1) 
-            printf("%3d - %f\n",l,s[j][ii]);
+      //printf("\n\n**************************************\n\n");
+      for (j = 0, l = 1; j < k; j = j + 1) {
+         for (ii = 0; ii < n / k; ii = ii + 1, l = l + 1) {
+            //printf("%3d - %f\n",l,s[j][ii]);
+	}
+	}
 
       printf ("wall time: %f\n", ((double)(t1 - t0)) / 1000);
       printf ("cpu time: %f\n", (float) (c1 - c0)/CLOCKS_PER_SEC);

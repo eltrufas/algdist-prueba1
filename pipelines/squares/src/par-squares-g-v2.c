@@ -32,13 +32,13 @@ void *Computes(void *n) {
    int i, j, size;
    struct Message *m;
 
-   printf("\n\n**************************************\n\n");
+   //printf("\n\n**************************************\n\n");
    m = (struct Message *) n;
-   printf("From %d Beginning The Task\n\n",m->myid);
+   //printf("From %d Beginning The Task\n\n",m->myid);
    size = m->nvalue / m->numthreads;
    for (i = 0, j = m->myid * size + 1; i < size; i = i + 1, j = j + 1)
       result[j-1] = sqrt(j);
-   printf("From %d Ending The Task\n\n",m->myid);   
+   //printf("From %d Ending The Task\n\n",m->myid);   
    pthread_exit(0);
 }
 
@@ -87,7 +87,7 @@ int main(int argc, char *argv[]) {
       t0 = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
 
       for (i = 0; i < k; i = i + 1) {
-         printf("Main: creating thread %d\n", i);
+         //printf("Main: creating thread %d\n", i);
          m[i]->myid = i;
          m[i]->nvalue = n;
          m[i]->numthreads = k;
@@ -96,14 +96,15 @@ int main(int argc, char *argv[]) {
       pthread_attr_destroy(&attribute); 
       for (i = 0; i < k; i = i + 1)
          pthread_join(thread[i],&exit_status);
-      printf("\n\n**************************************\n\n");
+      //printf("\n\n**************************************\n\n");
 
       gettimeofday(&timecheck, NULL);
       t1 = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
       c1 = clock();
 
-      for (i = 0; i < n; i = i + 1) 
-         printf("%3d - %f\n",i + 1,result[i]);
+      for (i = 0; i < n; i = i + 1) {
+         //printf("%3d - %f\n",i + 1,result[i]);
+	}
 
       printf ("wall time: %f\n", ((double)(t1 - t0)) / 1000);
       printf ("cpu time: %f\n", (float) (c1 - c0)/CLOCKS_PER_SEC);

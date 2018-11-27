@@ -1,4 +1,4 @@
-CC=clang
+CC=gcc
 
 
 all: generate-stars stars-row stars-col stars-row-par stars-col-par

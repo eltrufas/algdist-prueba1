@@ -13,6 +13,18 @@ pipelines:
     stages:
     - build
     vars: []
+  powerset:
+    envs:
+    - host
+    path: pipelines/powerset
+    requirements: {}
+    stages:
+    - setup
+    - run
+    - post-run
+    - validate
+    - teardown
+    vars: []
   squares:
     envs:
     - host

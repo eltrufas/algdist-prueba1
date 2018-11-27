@@ -19,12 +19,13 @@ int main(int argc, char *argv[]) {
    clock_t c0, c1;
    struct timeval timecheck;
 
-   if (argc != 3)
+   if (argc != 2)
       Usage(argv);
    else {
       n = atoi(argv[1]);
       s = calloc(n, sizeof(float));
 
+      c0 = clock();
       // Este metodo para obtener el tiempo de pared tiene mucha mejor
       // resoluci'on que time
       // https://stackoverflow.com/a/45769714
@@ -39,9 +40,10 @@ int main(int argc, char *argv[]) {
       t1 = (long)timecheck.tv_sec * 1000 + (long)timecheck.tv_usec / 1000;
       c1 = clock();
 
-      printf("\n\n**************************************\n\n");
+//      printf("\n\n**************************************\n\n");
       for (i = 1; i <= n; i++) {
-            printf("%3d - %f\n",i,s[i]);
+//            printf("%3d - %f\n",i,s[i]);
+
       }
 
       printf ("wall time: %f\n", ((double)(t1 - t0)) / 1000);
