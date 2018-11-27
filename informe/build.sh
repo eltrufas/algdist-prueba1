@@ -3,7 +3,8 @@
 
 rm -f images/*
 
-cp ../pipelines/squares/charts/* images/
-cp ../pipelines/stars/charts/* images/
+cp ../squares/charts/* images/
+cp ../stars/charts/* images/
+cp ../powerset/charts/* images/
 
 pdflatex informe.tex

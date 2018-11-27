@@ -111,6 +111,24 @@ int cmp_sets(struct Set *a, struct Set *b) {
     return 0;
 }
 
+void insertion_sort(struct Set *sets, size_t start, size_t end) {
+    size_t i, j;
+    struct Set s;
+
+    i = start + 1;
+    while (i < end) {
+        s = sets[i];
+        j = i - 1;
+        while (j >= start && cmp_sets(&s, sets + j) < 0) {
+            sets[j + 1] = sets[j];
+            j = j - 1;
+        }
+        
+        sets[j + 1] = s;
+        i++;
+    }
+}
+
 void print_holes(size_t *holes, size_t n) {
     size_t i;
     printf("Hole sizes: ");
@@ -123,7 +141,7 @@ void print_holes(size_t *holes, size_t n) {
 int main(int argc, char** argv) {
     uint32_t n, mode;
     uint32_t n_sets;
-    size_t i, k, set_size;
+    size_t i, k, set_size, l;
     size_t total_nodes;
     size_t next_node;
     size_t *hole_sizes;
@@ -203,7 +221,7 @@ int main(int argc, char** argv) {
         // del conjunto de entrada est'a en el subconjunto 
         while (p) {
             if (k & 1) {
-                q = get_next_node(nodes, &next_node);
+                q = calloc(1, sizeof(struct SetNode));
                 q->val = p->val;
                 push_node_front(sets + i, q);
             }
@@ -218,12 +236,15 @@ int main(int argc, char** argv) {
 
     k = 0;
     for (i = 0; i <= n; i++) {
+        l = k;
         r = sets_per_size[i];
         while (r) {
             sets_ordered[k] = *r;
             k += 1;
             r = r->next;
         }
+
+        insertion_sort(sets_ordered, l, k);
     }
 
     gettimeofday(&timecheck, 0);

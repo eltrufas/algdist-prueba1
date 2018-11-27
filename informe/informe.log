@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 NOV 2018 14:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  26 NOV 2018 22:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -497,14 +497,39 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count102
 \@thisrulewidth=\dimen126
 )
-(/usr/local/texlive/2017/texmf-dist/tex/latex/titlesec/titlesec.sty
+(/usr/local/texlive/2017/texmf-dist/tex/latex/algorithms/algorithm.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+\@float@every@algorithm=\toks23
+\c@algorithm=\count103
+)
+(/usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algpseudocode.sty
+Package: algpseudocode 
+
+(/usr/local/texlive/2017/texmf-dist/tex/latex/algorithmicx/algorithmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count104
+\c@ALG@rem=\count105
+\c@ALG@nested=\count106
+\ALG@tlm=\skip48
+\ALG@thistlm=\skip49
+\c@ALG@Lnr=\count107
+\c@ALG@blocknr=\count108
+\c@ALG@storecount=\count109
+\c@ALG@tmpcounter=\count110
+\ALG@tmplength=\skip50
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
+) (/usr/local/texlive/2017/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2016/03/21 v2.10.2 Sectioning titles
 \ttl@box=\box30
-\beforetitleunit=\skip48
-\aftertitleunit=\skip49
+\beforetitleunit=\skip51
+\aftertitleunit=\skip52
 \ttl@plus=\dimen127
 \ttl@minus=\dimen128
-\ttl@toksa=\toks23
+\ttl@toksa=\toks24
 \titlewidth=\dimen129
 \titlewidthlast=\dimen130
 \titlewidthfirst=\dimen131
@@ -525,33 +550,33 @@ LaTeX Warning: Label `table:squares-alg1-data' multiply defined.
 )
 \openout1 = `informe.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 35.
-LaTeX Font Info:    ... okay on input line 35.
-LaTeX Info: Redefining \. on input line 35.
-LaTeX Info: Redefining \% on input line 35.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Info: Redefining \. on input line 37.
+LaTeX Info: Redefining \% on input line 37.
  (/usr/local/texlive/2017/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count103
+\scratchcounter=\count111
 \scratchdimen=\dimen132
 \scratchbox=\box31
-\nofMPsegments=\count104
-\nofMParguments=\count105
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count106
+\nofMPsegments=\count112
+\nofMParguments=\count113
+\everyMPshowfont=\toks25
+\MPscratchCnt=\count114
 \MPscratchDim=\dimen133
-\MPnumerator=\count107
-\makeMPintoPDFobject=\count108
-\everyMPtoPDFconversion=\toks25
+\MPnumerator=\count115
+\makeMPintoPDFobject=\count116
+\everyMPtoPDFconversion=\toks26
 ) (/usr/local/texlive/2017/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2017/03/19 v0.25 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -612,11 +637,11 @@ Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 ))
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 66.
+(Font)              <7> on input line 68.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 66.
+(Font)              <5> on input line 68.
 
-Overfull \hbox (40.66713pt too wide) in paragraph at lines 66--85
+Overfull \hbox (40.66713pt too wide) in paragraph at lines 68--87
 [] 
  []
 
@@ -702,7 +727,7 @@ Cap\'{\i }tulo 2.
 File: ./images/square-perf.png Graphic file (type png)
 
 <use ./images/square-perf.png>
-Package pdftex.def Info: ./images/square-perf.png used on input line 295.
+Package pdftex.def Info: ./images/square-perf.png used on input line 293.
 (pdftex.def)             Requested size: 345.0pt x 123.21576pt.
  [6
 
@@ -711,138 +736,114 @@ Package pdftex.def Info: ./images/square-perf.png used on input line 295.
 File: ./images/square-perf-bar.png Graphic file (type png)
 
 <use ./images/square-perf-bar.png>
-Package pdftex.def Info: ./images/square-perf-bar.png used on input line 309.
+Package pdftex.def Info: ./images/square-perf-bar.png used on input line 307.
 (pdftex.def)             Requested size: 345.0pt x 129.37242pt.
 
 <./images/square-accel.png, id=49, 1156.32pt x 433.62pt>
 File: ./images/square-accel.png Graphic file (type png)
 
 <use ./images/square-accel.png>
-Package pdftex.def Info: ./images/square-accel.png used on input line 323.
+Package pdftex.def Info: ./images/square-accel.png used on input line 321.
 (pdftex.def)             Requested size: 345.0pt x 129.37242pt.
-LaTeX Info: Redefining \. on input line 326.
-LaTeX Info: Redefining \% on input line 326.
-LaTeX Info: Redefining \. on input line 326.
-LaTeX Info: Redefining \% on input line 326.
+LaTeX Info: Redefining \. on input line 324.
+LaTeX Info: Redefining \% on input line 324.
+LaTeX Info: Redefining \. on input line 324.
+LaTeX Info: Redefining \% on input line 324.
  [7 <./images/square-perf.png> <./images/square-perf-bar.png>] <./images/square
 -accel-bar.png, id=55, 1156.32pt x 433.62pt>
 File: ./images/square-accel-bar.png Graphic file (type png)
 
 <use ./images/square-accel-bar.png>
-Package pdftex.def Info: ./images/square-accel-bar.png used on input line 330.
+Package pdftex.def Info: ./images/square-accel-bar.png used on input line 328.
 (pdftex.def)             Requested size: 345.0pt x 129.37242pt.
 
 <./images/square-eff.png, id=56, 1156.32pt x 433.62pt>
 File: ./images/square-eff.png Graphic file (type png)
 
 <use ./images/square-eff.png>
-Package pdftex.def Info: ./images/square-eff.png used on input line 345.
+Package pdftex.def Info: ./images/square-eff.png used on input line 343.
 (pdftex.def)             Requested size: 345.0pt x 129.37242pt.
-LaTeX Info: Redefining \. on input line 348.
-LaTeX Info: Redefining \% on input line 348.
-LaTeX Info: Redefining \. on input line 348.
-LaTeX Info: Redefining \% on input line 348.
+LaTeX Info: Redefining \. on input line 346.
+LaTeX Info: Redefining \% on input line 346.
+LaTeX Info: Redefining \. on input line 346.
+LaTeX Info: Redefining \% on input line 346.
  [8 <./images/square-accel.png> <./images/square-accel-bar.png>] <./images/squa
 re-eff-bar.png, id=62, 1156.32pt x 433.62pt>
 File: ./images/square-eff-bar.png Graphic file (type png)
 
 <use ./images/square-eff-bar.png>
-Package pdftex.def Info: ./images/square-eff-bar.png used on input line 352.
+Package pdftex.def Info: ./images/square-eff-bar.png used on input line 350.
 (pdftex.def)             Requested size: 345.0pt x 129.37242pt.
 
 <./images/square-overhead.png, id=63, 1084.05pt x 433.62pt>
 File: ./images/square-overhead.png Graphic file (type png)
 
 <use ./images/square-overhead.png>
-Package pdftex.def Info: ./images/square-overhead.png used on input line 366.
+Package pdftex.def Info: ./images/square-overhead.png used on input line 364.
 (pdftex.def)             Requested size: 345.0pt x 138.00034pt.
-LaTeX Info: Redefining \. on input line 369.
-LaTeX Info: Redefining \% on input line 369.
-LaTeX Info: Redefining \. on input line 369.
-LaTeX Info: Redefining \% on input line 369.
+LaTeX Info: Redefining \. on input line 367.
+LaTeX Info: Redefining \% on input line 367.
+LaTeX Info: Redefining \. on input line 367.
+LaTeX Info: Redefining \% on input line 367.
  [9 <./images/square-eff.png> <./images/square-eff-bar.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 385--392
+LaTeX Info: Redefining \. on input line 377.
+LaTeX Info: Redefining \% on input line 377.
+LaTeX Info: Redefining \. on input line 377.
+LaTeX Info: Redefining \% on input line 377.
+ [10 <./images/square-overhead.png>]
+Cap\'{\i }tulo 3.
+[11
 
- []
-
-LaTeX Info: Redefining \. on input line 395.
-LaTeX Info: Redefining \% on input line 395.
-LaTeX Info: Redefining \. on input line 395.
-LaTeX Info: Redefining \% on input line 395.
-[10 <./images/square-overhead.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 399--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 399--433
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 399--433
-
- []
-
-LaTeX Info: Redefining \. on input line 441.
-LaTeX Info: Redefining \% on input line 441.
-LaTeX Info: Redefining \. on input line 441.
-LaTeX Info: Redefining \% on input line 441.
-[11]
-LaTeX Info: Redefining \. on input line 454.
-LaTeX Info: Redefining \% on input line 454.
-LaTeX Info: Redefining \. on input line 454.
-LaTeX Info: Redefining \% on input line 454.
- [12]
+]
 Ap\'{e}ndice A.
 
-Overfull \hbox (13.83937pt too wide) in paragraph at lines 456--456
+Overfull \hbox (13.83937pt too wide) in paragraph at lines 409--409
 |\OT1/cmr/bx/n/24.88 Datos ex-pe-ri-men-ta-les del pro-
  []
 
 
-Overfull \hbox (42.97308pt too wide) in paragraph at lines 460--488
+Overfull \hbox (42.97308pt too wide) in paragraph at lines 413--441
 [][] 
  []
 
 
-Overfull \hbox (42.97308pt too wide) in paragraph at lines 494--521
+Overfull \hbox (42.97308pt too wide) in paragraph at lines 447--474
 [][] 
  []
 
-[13
+[12
 
 
 ]
-LaTeX Info: Redefining \. on input line 527.
-LaTeX Info: Redefining \% on input line 527.
-LaTeX Info: Redefining \. on input line 527.
-LaTeX Info: Redefining \% on input line 527.
- [14]
+LaTeX Info: Redefining \. on input line 480.
+LaTeX Info: Redefining \% on input line 480.
+LaTeX Info: Redefining \. on input line 480.
+LaTeX Info: Redefining \% on input line 480.
+ [13]
 Ap\'{e}ndice B.
 
-Overfull \hbox (13.83937pt too wide) in paragraph at lines 527--527
+Overfull \hbox (13.83937pt too wide) in paragraph at lines 480--480
 |\OT1/cmr/bx/n/24.88 Datos ex-pe-ri-men-ta-les del pro-
  []
 
 
-Overfull \hbox (7.66751pt too wide) in paragraph at lines 530--558
+Overfull \hbox (7.66751pt too wide) in paragraph at lines 483--511
 [][] 
  []
 
 
-Overfull \hbox (7.66751pt too wide) in paragraph at lines 563--591
+Overfull \hbox (7.66751pt too wide) in paragraph at lines 516--544
 [][] 
  []
 
-[15
+[14
 
 ]
-LaTeX Info: Redefining \. on input line 597.
-LaTeX Info: Redefining \% on input line 597.
-LaTeX Info: Redefining \. on input line 597.
-LaTeX Info: Redefining \% on input line 597.
- [16] (./informe.aux
+LaTeX Info: Redefining \. on input line 550.
+LaTeX Info: Redefining \% on input line 550.
+LaTeX Info: Redefining \. on input line 550.
+LaTeX Info: Redefining \% on input line 550.
+ [15] (./informe.aux
 LaTeX Info: Redefining \. on input line 6.
 LaTeX Info: Redefining \% on input line 6.
 )
@@ -851,27 +852,27 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 4697 strings out of 492995
- 64796 string characters out of 6132704
- 156271 words of memory out of 5000000
- 8162 multiletter control sequences out of 15000+600000
- 5979 words of font info for 22 fonts, out of 8000000 for 9000
+ 5219 strings out of 492995
+ 72481 string characters out of 6132704
+ 164032 words of memory out of 5000000
+ 8672 multiletter control sequences out of 15000+600000
+ 6233 words of font info for 23 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,9n,39p,255b,388s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,9n,39p,279b,388s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb>
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
 /usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></u
 sr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr
 /local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/lo
-cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loc
-al/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local
-/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/
+cal/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
+/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on informe.pdf (17 pages, 2029461 bytes).
+Output written on informe.pdf (16 pages, 2022809 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 125 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

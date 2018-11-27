@@ -21,6 +21,8 @@
 \usepackage[toc,header,title]{appendix}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
 \graphicspath{{./images/}}
 %
 \renewcommand*\thesection{\arabic{section}}
@@ -86,8 +88,6 @@ Licenciatura en Ciencia de la Computaci\'on & ~~ & rafael@trfs.me
 
 \chapter{Problema 1}
 
-\section{Descripci\'on del problema}
-
 \textbf{Enunciado} Haz un estudio del comportamiento del algoritmo que determina
 la distancia de estrellas a partir de una matriz de intensidad de luz. La
 implementaci\'on vista en clase recorre la matriz por filas. Construya una
@@ -108,8 +108,7 @@ $N \times M$. El algoritmo ser\'a $\mathcal{O}(MN)$.
 
 \section{Experimentos}
 
-Todos los experimentos se corrieron en una instancia \texttt{compute\_skylake} en la
-nube de Chameleon con las especificaciones presentadas en la tabla
+Todos los experimentos se corrieron en un servidor con las especificaciones presentadas en la tabla
 ~\ref{table:testspecs}.
 
 \begin{table}[H]
@@ -251,8 +250,6 @@ es importante estar consciente de su existencia.
 
 \chapter{Problema 2}
 
-\section{Descripción del problema}
-
 \textbf{Enunciado} Analizar el desempeño del programa que calcula las raices
 cuadradas entre $1$ y $n$.
 
@@ -376,80 +373,81 @@ beneficio de dividir el problema y el costo de crear estas divisiones y reunir l
 resultados. En este caso rapidamente nos topamos con el punto donde el overhead
 de paralelizar de más terminó alentando el desempeño de la solución.
 
-%
-\section{Introducci\'on}
-El objetivo de este trabajo es construir un algoritmo que dadas las coordenadas de dos piezas de ajedrez, de las 
-cuales una es un alfil, determine si el alfil puede atacar a la otra pieza.
-%
-\section{Procedimiento}
-Un alfil ataca a la pieza contraria si esta se encuentra en alguna de las diagonales 
-Dado que cada pieza ocupa una posici\'on en el tablero es suficiente con calcular la pendiente de la recta que pasa 
-por las coordenadas en las cuales se encuentran ambas piezas. 
-\newline
-\newline
-Si el valor de dicha pendiente es $1$ o $-1$, entonces el alfil ataca a la pieza contraria.    
-%
-\subsection{Restricciones}
-Se asume que las coordenadas de ambas piezas son v\'alidas y que cada ambas piezas no ocupan la misma posici\'on.
-%
-\section{Estructuras de Datos Utilizadas}
-Para este problema no se ocupan estructuras de datos.
-%
+\chapter{Problema 3}
+
+Construir un programa paralelo que tome como entrada un conjunto de n elementos
+almacenados en una lista y generar su conjunto potencia.
+
 \section{Algoritmo}
-El algoritmo para ...
-\newline
-\newline
-{\bf Algorithm} Bootstrap
-\newline
-\newline
-\begin{tabular}{l l}
-{\bf Input}:  & $X, Y$ set of $n$ observations \\ 
-              & $nbi$ Number of bootstrap iterations \\ 
-              & $p$ percent of the confidence interval \\
-{\bf Output}: & $x_l, x_r$ Confidence interval  \\
-\end{tabular}
-~~
-\newline
-\begin{tabular}{>{\em}r l}
-\\
-1 & $\rho \leftarrow \mbox{\bf CorrelationCoef}(X,Y)$ \\
-2 & {\bf for}~$i~\leftarrow 1~ \mbox{\bf to}~ nbi$~ {\bf do} \\
-3 & \minitab $X',Y' \leftarrow \mbox{\bf SampleFrom}(X,Y,n)$ \\
-4 & \minitab $cint_i \leftarrow \mbox{\bf CorrelationCoef}(X',Y')$ \\
-5 & {\bf Sort}$(cint)$ \\
-6 & $x_l,x_r \leftarrow \mbox{\bf ConfidenceInterval}(cint,p)$ \\
-7 & $\mbox{\bf return}~x_l,x_r$
-\end{tabular}
-~~~
-\newline
-\newline
-El algoritmo primero verifica si ambas piezas se encuentran en la misma fila (l\'inea 1) o en la misma columna
-(l\'inea 3); en ambos casos el resultado es {\em Fail}. 
-\newline
-Si ambas piezas no se encuentran en la misma fila o columna se calcula la pendiente de la recta que pasa por las coordenadas
-en las cuales se encuentran ambas piezas (l\'inea 5) y luego se verifica si el valor de la pendiente es $\pm 1$ 
-(l\'inea 6).
-%
-\subsection{An\'alisis de Complejidad}
-El algoritmo propuesto tiene costo constante.
-%
-\section{Implementaci\'on}
-El algoritmo est\'a implementado en lenguaje C como se muestra en la figura a continuaci\'on:
-%\begin{figure}[h]
-%\includegraphics[scale=0.5]{alfil.pdf}
-%\end{figure}
-\newpage
-%
-\subsection{Plataforma Computacional}
-El programa fue ejecutado eun un computador con las siguientes caracter\'isticas:
-\begin{itemize}
-\item {\bf Procesador:} Intel(R) Pentium(R) 4 CPU 3.00GHz
-\item {\bf Memoria RAM:} 994312 kB
-\item {\bf Sistema Operativo:} Linux - Ubuntu 9.04 
-\end{itemize}
-%
-\section{Resultados Experimentales}
-En este caso es trivial ...
+
+Para la versión secuencial utilizamos este algoritmo. Usamos la representación
+de bits para generar los conjuntos fuera de orden, luego usamos un ordenamiento
+por conteo para arreglar el orden.
+
+\begin{algorithm}
+\caption{Conjinto potencia secuencial}\label{euclid}
+\begin{algorithmic}[1]
+\Procedure{Potencia}{$N$}\Comment{Conjunto potencia secuencial}
+\State Inicializar $S$ con $2^N$ conjuntos vacios
+\For{$i$ in $1..2^N$}
+  \For{$j$ in $1..N$}
+    \If{El bit $j$ está encendido en el numero $i$}
+      \State Agregar el elemento $j$ de la lista de entrada al conjunto $i$
+    \EndIf
+  \EndFor
+\EndFor
+\State CountingSort($S$)
+\EndProcedure
+\end{algorithmic}
+\end{algorithm}
+
+Para la versión paralela, dividimos la sección de generar los conjuntos desordenados
+en hilos, y luego tambien usamos una version paralela del counting sort para
+intentar acelerar ese paso.
+
+\subsection{Analisís de complejidad}
+
+El algoritmo tiene complejidad $O(n2^n)$.
+
+\section{Expermientos}
+
+Los experimentos se llevaron a cabo en el mismo servidor que los problemas
+anteriores, especificado en la tabla \ref{table:testspecs}.
+
+Se probó de nuevo para $3, 6, 12, 24, 48, 96$ hilos, con tamaños de problema
+$n = 15, 16, \ldots, 24, 25$. Se repitió el experimento 5 veces, tomando en cuenta
+el valor mediano. Los resultados se encuentran en el apendice C.
+
+Resulta que paralelizar este algoritmo en particular tuvo un efecto terrible.
+Observemos la figura \ref{fig:powersetperf}. El algoritmo en todos los casos
+corre mas lento en su versión paralela. El rendimiento se vuelve peor entre más
+hilos se agreguén. No estoy seguro de que ocasiona que se alente.
+
+\begin{figure}[H]
+    \centering
+    \caption{Rendimiento del algoritmo}
+  \includegraphics[width=\textwidth]{powerset-perf}
+\label{fig:powersetperf}
+\end{figure}
+
+La aceleración muestra lo mismo. El algoritmo paralelo en ningun punto es más
+rapido. Tal véz esto diga mas sobre la rápidez del algoritmo secuencial que nada.
+
+\begin{figure}[H]
+    \centering
+    \caption{Aceleración del algoritmo}
+  \includegraphics[width=\textwidth]{powerset-accel}
+\label{fig:powersetaccel}
+\end{figure}
+
+\section{Conclusión}
+
+Este problema remarca la dificultad de diseñar algoritmos paralelos.
+Se ve que el costo de crear hilos a menudo dificulta diseñar estos algoritmos.
+Hay distintos enfoques para diseñar estos algoritmos pero hay algunos que llevan
+a mas exito que otros. Hay que buscar el enfoque correcto y en este caso no
+se encontró.
+
 %
 \begin{appendices}
 
