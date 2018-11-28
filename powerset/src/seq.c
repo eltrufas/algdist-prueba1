@@ -111,24 +111,6 @@ int cmp_sets(struct Set *a, struct Set *b) {
     return 0;
 }
 
-void insertion_sort(struct Set *sets, size_t start, size_t end) {
-    size_t i, j;
-    struct Set s;
-
-    i = start + 1;
-    while (i < end) {
-        s = sets[i];
-        j = i - 1;
-        while (j >= start && cmp_sets(&s, sets + j) < 0) {
-            sets[j + 1] = sets[j];
-            j = j - 1;
-        }
-        
-        sets[j + 1] = s;
-        i++;
-    }
-}
-
 void print_holes(size_t *holes, size_t n) {
     size_t i;
     printf("Hole sizes: ");
@@ -243,8 +225,6 @@ int main(int argc, char** argv) {
             k += 1;
             r = r->next;
         }
-
-        insertion_sort(sets_ordered, l, k);
     }
 
     gettimeofday(&timecheck, 0);

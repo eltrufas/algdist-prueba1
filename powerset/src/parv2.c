@@ -1,3 +1,15 @@
+/*
+ * parv3.c: Calcula el conjunto potencia del conjunto con los numeros
+ * naturales de 1..n usando k hilos.
+ *
+ * Esta versi'on escribe en la memoria compartida cada que se calcula un
+ * conjunto con fin de reducir la cantidad de alocaciones de memoria.
+ *
+ * Autor: Rafael A. Castillo 
+ *
+ * Santiago de Chile: 2018-11-28
+ */
+
 #include <sys/types.h>
 #include <sys/time.h>
 #include <stdlib.h>
@@ -5,6 +17,8 @@
 #include <stdio.h>
 #include <pthread.h>
 #include <stdint.h>
+#include <unistd.h>
+
 #include <string.h>
 
 #define SILENT 0
@@ -16,6 +30,7 @@ struct SetNode {
 };
 
 struct Set {
+    size_t id;
     size_t size;
     struct SetNode *first;
     struct Set *next;
@@ -28,6 +43,7 @@ struct ThreadMsg {
     struct Set *sets;
     struct Set **sets_per_size;
     struct Set *input_set;
+    struct SetNode *temp_buf;
     struct NodeAlloc *alloc;
     uint32_t opmode;
 };
@@ -93,6 +109,52 @@ struct SetNode *alloc_node(struct NodeAlloc *alloc) {
     return node;
 }
 
+void print_set(struct Set *set) {
+    struct SetNode *p;
+    printf("{ ");
+    p = set->first;
+    while (p) {
+        printf("%d ", p->val);
+        p = p->next;
+    }
+    printf("} %lu %lu\n", set->size, set->id);
+}
+
+struct SetNode *alloc_n(struct NodeAlloc *alloc, size_t n) {
+    struct SetNode *node;
+    pthread_mutex_lock(&alloc->lock);
+
+    node = alloc->nodes + alloc->next_idx;
+    alloc->next_idx += n;
+
+    pthread_mutex_unlock(&alloc->lock);
+
+    return node;
+}
+
+void commit_set(struct NodeAlloc *alloc, struct Set *set) {
+    struct SetNode *final_nodes, *p;
+    size_t i;
+
+    if (!set->size) {
+        return;
+    }
+
+    final_nodes = alloc_n(alloc, set->size);
+    p = set->first;
+
+    i = 0;
+    while (p) {
+        final_nodes[i].val = p->val;
+        final_nodes[i].next = final_nodes + i + 1;
+        i++;
+        p = p->next;
+    }
+
+    final_nodes[i-1].next = 0;
+    set->first = final_nodes;
+}
+
 void usage(char **argv) {
     printf("Usage: %s [-S/V] n k\n", argv[0]);
     exit(1);
@@ -133,19 +195,12 @@ void push_set_front(struct Set **setlist, struct Set *set) {
     *setlist = set;
 }
 
-void print_set(struct Set *set) {
-    struct SetNode *p;
-    printf("{ ");
-    p = set->first;
-    while (p) {
-        printf("%d ", p->val);
-        p = p->next;
-    }
-    printf("}\n");
-}
+void merge(struct Set *sets, size_t start, size_t mid, size_t end, struct Set *dest);
+void merge_split(struct Set *sets, size_t start, size_t end, struct Set *dest);
+void merge_sort(struct Set *sets, size_t start, size_t end);
 
 void *thread_work(void *d) {
-    size_t i, k, set_size, work_size, end_idx;
+    size_t i, k, set_size, work_size, end_idx, temp_idx;
     struct SetNode *p, *q;
     struct ThreadMsg msg;
 
@@ -165,13 +220,16 @@ void *thread_work(void *d) {
             printf("[THREAD %lu] getting set %lu\n", msg.id, i);
         }
 
+        temp_idx = 0;
+
         msg.sets[i].size = 0;
         msg.sets[i].first = 0;
+        msg.sets[i].id = i;
         // Consideramos el bit n para indicar si el n-esimo elemento
         // del conjunto de entrada est'a en el subconjunto 
         while (p) {
             if (k & 1) {
-                q = alloc_node(msg.alloc);
+                q = msg.temp_buf + temp_idx++;
                 q->val = p->val;
                 push_node_front(msg.sets + i, q);
             }
@@ -179,6 +237,7 @@ void *thread_work(void *d) {
             k >>= 1;
         }
 
+        commit_set(msg.alloc, msg.sets + i);
         set_size = msg.sets[i].size;
         push_set_front(msg.sets_per_size + set_size, msg.sets + i);
     }
@@ -211,7 +270,7 @@ void *thread_sort(void *d) {
                     r = r->next;
                 }
             }
-            insertion_sort(msg.sets, m, k);
+            merge_sort(msg.sets, m, k);
         } else {
             k += ncr(msg.n, i);
         }
@@ -221,34 +280,65 @@ void *thread_sort(void *d) {
     pthread_exit(0);
 }
 
-int cmp_sets(struct Set *a, struct Set *b) {
-    struct SetNode *p, *q;
+void merge(struct Set *sets, size_t start, size_t mid, size_t end, struct Set *dest) {
+    size_t i, j, k;
 
-    if (a->size < b->size) {
-        return -1;
-    }
-    
-    if (a->size > b->size) {
-        return 1;
-    }
 
-    p = a->first;
-    q = b->first;
 
-    while (p && q) {
-        if (p->val < q->val) {
-            return -1;
+    i = start;
+    j = mid;
+
+    for (k = start; k < end; k++) {
+        if (i < mid && (j >= end || sets[i].id > sets[j].id)) {
+            dest[k] = sets[i];
+            i++;
+        } else {
+            dest[k] = sets[j];
+            j++;
         }
-        if (p->val > q->val) {
-            return 1;
-        }
-
-        p = p->next;
-        q = q->next;
     }
-
-    return 0;
 }
+
+void merge_split(struct Set *sets, size_t start, size_t end, struct Set *dest) {
+    size_t mid, i;
+    if (end - start < 2) {
+        return;
+    }
+
+
+    mid = start + (end - start) / 2;
+
+    merge_split(dest, start, mid, sets);
+    merge_split(dest, mid, end, sets);
+
+
+    merge(sets, start, mid, end, dest);
+
+}
+
+void merge_sort(struct Set *sets, size_t start, size_t end) {
+    struct Set *temp;
+    size_t i;
+    sets = sets + start;
+    end -= start;
+    start = 0;
+
+    if (end < 2) {
+        return;
+    }
+
+    temp = calloc(end - start, sizeof(struct Set));
+    for (i = 0; i < end; i++) {
+        temp[i] = sets[i];
+    }
+
+    merge_split(temp, start, end, sets);
+
+
+
+    free(temp);
+}
+
 
 void insertion_sort(struct Set *sets, size_t start, size_t end) {
     size_t i, j;
@@ -258,7 +348,7 @@ void insertion_sort(struct Set *sets, size_t start, size_t end) {
     while (i < end) {
         s = sets[i];
         j = i - 1;
-        while (j >= start && cmp_sets(&s, sets + j) < 0) {
+        while (j >= start && s.id > sets[j].id) {
             sets[j + 1] = sets[j];
             j = j - 1;
         }
@@ -344,6 +434,7 @@ int main(int argc, char** argv) {
     msgs = calloc(k, sizeof(struct ThreadMsg));
     for (i = 0; i < k; i++) {
         msgs[i].sets_per_size = calloc(n + 1, sizeof(struct Set*));
+        msgs[i].temp_buf = calloc(n + 1, sizeof(struct SetNode));
     }
 
     // Inicializamos los mensajes para ordenar
@@ -416,6 +507,8 @@ int main(int argc, char** argv) {
 
     printf ("wall time: %f\n", ((double)(t1 - t0)) / 1000);
     printf ("cpu time: %f\n", (float) (c1 - c0)/CLOCKS_PER_SEC);
+
+    destroy_node_alloc(&alloc);
 
     return 0;
 }
